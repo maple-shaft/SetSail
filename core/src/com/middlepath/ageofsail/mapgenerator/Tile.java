@@ -46,7 +46,7 @@ public class Tile implements Serializable {
 		} else {
 			gid = tileType.gids[0];
 		}
-		return "<tile gid=\"" + gid + "\" />\n\t";
+		return "<tile gid=\"" + (gid+1) + "\" />\n\t";
 	}
 	
 	public static Tile[][] createTilesFromTileTypes(TileType[][] tileTypes) {

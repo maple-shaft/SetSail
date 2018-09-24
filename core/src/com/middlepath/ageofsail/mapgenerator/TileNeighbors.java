@@ -16,13 +16,17 @@ public class TileNeighbors implements Iterable<TileType> {
 	 * 
 	 */
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof TileNeighbors))
+		if (obj == null || !(obj instanceof TileNeighbors) || this.neighbors == null)
 			return false;
 		
 		TileNeighbors o = (TileNeighbors)obj;
 		boolean retVal = true;
 		for (int i = 0; i < 8; i++) {
 			if (o.neighbors[i] == null || this.neighbors[i] == null) {
+				continue;
+			} else if (o.neighbors[i] == TileType.ANYLAND && this.neighbors[i] != TileType.BL) {
+				continue;
+			} else if (this.neighbors[i] == TileType.ANYLAND && o.neighbors[i] != TileType.BL) {
 				continue;
 			}
 			retVal &= o.neighbors[i] == this.neighbors[i];
@@ -58,18 +62,18 @@ public class TileNeighbors implements Iterable<TileType> {
 			if (y != 0) {
 				retVal.neighbors[2] = map[y - 1][x + 1];
 			}
-			if (x != 2159 || y != 1079) {
+			if (x < 2159 && y < 1079) {
 				retVal.neighbors[7] = map[y + 1][x + 1];
 			}
 		
 		}
 		
 		if (y > 0) {
-			retVal.neighbors[1] = map[y + 1][x];
+			retVal.neighbors[1] = map[y - 1][x];
 		}
 		
 		if (y < 1079) {
-			retVal.neighbors[6] = map[y - 1][x];
+			retVal.neighbors[6] = map[y + 1][x];
 		}
 		return retVal;
 	}

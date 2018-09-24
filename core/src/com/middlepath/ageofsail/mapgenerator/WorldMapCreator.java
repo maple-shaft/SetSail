@@ -126,12 +126,12 @@ public class WorldMapCreator {
 		for (int y = 0; y < tileData.length; y++) {
 			for (int x = 0; x < tileData[0].length; x++) {
 				String t = nl.pop();
-				if (tileData[y][x] == TileType.BL) {
-					writer.write(t);
-					continue;
-				} else {
+				//if (tileData[y][x] == TileType.BL) {
+				//	writer.write(t);
+				//	continue;
+				//} else {
 					writer.write(tiles[y][x].toString());
-				}
+				//}
 			}
 		}
 			
