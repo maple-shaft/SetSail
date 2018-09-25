@@ -69,104 +69,137 @@ public class WorldMapCreator {
 		return output;
 	}
 
-	public static MyHandler loadTMX() throws Exception {
-		InputStream is = WorldMapCreator.class.getResourceAsStream("/maps/wth.tmx");
-		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-		SAXParser saxParser = saxParserFactory.newSAXParser();
-		MyHandler handler = new MyHandler();
-		saxParser.parse(is, handler);
-		
-		// File fXmlFile = new File("/Users/mkyong/staff.xml");
-		// DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		// DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		// Document doc = dBuilder.parse(is);
-
-		// optional, but recommended
-		// read this -
-		// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-		// doc.getDocumentElement().normalize();
-		return handler;
-
-	}
-
 	public static TileType[][] loadTileData() throws Exception {
 		InputStream is = WorldMapCreator.class.getResourceAsStream("/maps/uwnhmap.png");
 		BufferedImage bufferedImage = ImageIO.read(is);
-		TileType[][] retVal = new TileType[height][width];
+		TileType[][] retVal = new TileType[height * 2][width * 2];
+		int retXCounter = 0;
+		int retYCounter = 0;
 		for (int yy = 0; yy < height; yy++) {
 			for (int xx = 0; xx < width; xx++) {
 				int p = bufferedImage.getRGB(xx, yy);
 				int r = (p >> 16) & 0xff;
 				int g = (p >> 8) & 0xff;
 				int b = p & 0xff;
-				retVal[yy][xx] = TileType.createTile(new int[] { r, g, b });
+				TileType baseTile = TileType.createTile(new int[] { r, g, b });
+				retVal[retYCounter][retXCounter] = baseTile;
+				retVal[retYCounter][retXCounter + 1] = baseTile;
+				retVal[retYCounter + 1][retXCounter] = baseTile;
+				retVal[retYCounter + 1][retXCounter + 1] = baseTile;
+				retXCounter += 2;
 			}
+			retYCounter += 2;
+			retXCounter = 0;
 		}
+		
 		return retVal;
 	}
 
-	public static void changeDocument(MyHandler handler, TileType[][] tileData) throws Exception {
+	public static void changeDocument(TileType[][] tileData) throws Exception {
 		// map -> layer -> data -> tile
-		// NodeList nl =
-		// doc.getFirstChild().getChildNodes().item(1).getFirstChild().getChildNodes();
-
 		FileWriter wrir = new FileWriter(new File("c:/Users/Dustin/Desktop/modmap.tmx"));
 		BufferedWriter writer = new BufferedWriter(wrir);
 		
 		final String startDoc = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
-				"<map version=\"1.0\" tiledversion=\"1.1.6\" orientation=\"orthogonal\" renderorder=\"right-up\" width=\"2160\" height=\"1080\" tilewidth=\"64\" tileheight=\"64\" infinite=\"0\" nextobjectid=\"1\">\r\n" + 
+				"<map version=\"1.0\" tiledversion=\"1.1.6\" orientation=\"orthogonal\" renderorder=\"right-up\" width=\"4320\" height=\"2160\" tilewidth=\"64\" tileheight=\"64\" infinite=\"0\" nextobjectid=\"1\">\r\n" + 
 				" <tileset firstgid=\"1\" source=\"overworld.tsx\"/>\r\n" + 
-				" <layer name=\"Tile Layer 1\" width=\"2160\" height=\"1080\">\r\n" + 
-				"  <data>";
+				" <layer name=\"Tile Layer 1\" width=\"4320\" height=\"2160\">\r\n" + 
+				"  <data encoding=\"csv\">";
 		final String endDoc = "</data></layer></map>";
 		writer.write(startDoc);
-		LinkedList<String> nl = handler.getTileTags();
 		
+		StringBuffer sb = new StringBuffer();
 		Tile[][] tiles = Tile.createTilesFromTileTypes(tileData);
 		for (int y = 0; y < tileData.length; y++) {
 			for (int x = 0; x < tileData[0].length; x++) {
-				String t = nl.pop();
-				//if (tileData[y][x] == TileType.BL) {
-				//	writer.write(t);
-				//	continue;
-				//} else {
-					writer.write(tiles[y][x].toString());
-				//}
+				sb.append((tiles[y][x].toString()));
 			}
+			sb.append("\n\t");
 		}
-			
+		sb.deleteCharAt(sb.length() - 1);
+		sb.deleteCharAt(sb.length() - 1);
+		sb.deleteCharAt(sb.length() - 1);
+		writer.write(sb.toString());
 		writer.write(endDoc);
 		writer.flush();
 		writer.close();
-		//FileWriter writer = new FileWriter(new File("c:/Users/Dustin/Desktop/modmap.tmx"));
-
-		//writer.write(finalDoc.toString());
-		//Transformer xformer = TransformerFactory.newInstance().newTransformer();
-		//xformer.transform(new DOMSource(doc), new StreamResult(new File("c:/Users/Dustin/Desktop/modmap.tmx")));
 		return;
 	}
-
-	public static int getRandomGid(int[] gids) {
-		Random r = new Random();
-		int gindex = r.nextInt(gids.length);
-		return gids[gindex];
+	
+	public static TileType[][] firstPass(TileType[][] tileData) {
+		TileType[][] mod = new TileType[height][width];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, tileData);
+				TileType centerTile = tileData[y][x];
+				boolean hasWaterNeighbor = false;
+				for (TileType tt : neighborData) {
+					if (tt == TileType.BL) {
+						hasWaterNeighbor = true;
+						break;
+					}
+				}
+				if (centerTile != TileType.BL && hasWaterNeighbor)
+					mod[y][x] = TileType.BL;
+				else
+					mod[y][x] = tileData[y][x];
+			}
+		}
+		
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, mod);
+				TileType centerTile = mod[y][x];
+				boolean hasLandNeighbor = false;
+				for (TileType tt : neighborData) {
+					if (tt != TileType.BL) {
+						hasLandNeighbor = true;
+						break;
+					}
+				}
+				if (centerTile == TileType.BL && hasLandNeighbor && tileData[y][x] != TileType.BL)
+					mod[y][x] = tileData[y][x];
+			}
+		}
+		return mod;
+	}
+	
+	public static TileType[][] secondPass(TileType[][] tileData) {
+		TileType[][] mod = new TileType[height][width];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, tileData);
+				TileType centerTile = tileData[y][x];
+				boolean hasLandNeighbor = false;
+				for (TileType tt : neighborData) {
+					if (tt != TileType.BL) {
+						hasLandNeighbor = true;
+						break;
+					}
+				}
+				if (centerTile == TileType.BL && hasLandNeighbor)
+					mod[y][x] = TileType.GR;
+				else
+					mod[y][x] = tileData[y][x];
+			}
+		}
+		return mod;
 	}
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		MyHandler doc = loadTMX();
-
-		//System.out.println(doc.getDocumentElement());
 
 		TileType[][] tileData = loadTileData();
-
+		//tileData = firstPass(tileData);
+		//tileData = firstPass(tileData);
+		
+		//tileData = secondPass(tileData);
 		/*Map<TileType, Long> countTiles = tileData.stream()
 				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
 		countTiles.entrySet().stream()
 				.forEach(kv -> System.out.println("TileType: " + kv.getKey() + " = " + kv.getValue()));
 */
-		changeDocument(doc, tileData);
+		changeDocument(tileData);
 		
 	}
 

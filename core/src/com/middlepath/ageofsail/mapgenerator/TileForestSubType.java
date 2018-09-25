@@ -1,13 +1,6 @@
 package com.middlepath.ageofsail.mapgenerator;
 
-/**
- * Contains a gid for the tileset as well as a TileNeighbors object that maps what its surrounding tiles are 
- * supposed to look like for it to qualify.
- * 
- * @author Dustin
- *
- */
-public enum TileGrassSubType implements TileSubType {
+public enum TileForestSubType implements TileSubType {
 
 	ANYLAND_INSIDEBOTTOMRIGHT(25, INSIDEBOTTOMRIGHT),
 	ANYLAND_INSIDETOPRIGHT(4, INSIDETOPRIGHT),
@@ -21,12 +14,12 @@ public enum TileGrassSubType implements TileSubType {
 	ANYLAND_TOPRIGHT(2, TOPRIGHT),
 	ANYLAND_BOTTOMLEFT(42, BOTTOMLEFT),
 	ANYLAND_BOTTOMRIGHT(44, BOTTOMRIGHT),
-	ANYLAND_MAIN(22, MAIN);
+	ANYLAND_MAIN(91, MAIN);
 	
 	final int gid;
 	final TileNeighbors tileNeighbors;
 	
-	TileGrassSubType(int gid, TileType[] tileNeighbors) {
+	TileForestSubType(int gid, TileType[] tileNeighbors) {
 		this.gid = gid;
 		this.tileNeighbors = new TileNeighbors();
 		this.tileNeighbors.neighbors = tileNeighbors;

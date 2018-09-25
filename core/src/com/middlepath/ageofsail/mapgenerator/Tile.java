@@ -20,10 +20,9 @@ public class Tile implements Serializable {
 	
 	public static Tile createTile(int x, int y, TileType tt, TileType[][] map) {
 		Tile tile = new Tile();
-		tile.tileType = tt;
 		tile.tileNeighbors = TileNeighbors.createTileNeighbors(x, y, map);
 		
-		if (tile.tileType == TileType.GR) {
+		if (tt == TileType.GR) {
 			for (TileGrassSubType s : TileGrassSubType.values()) {
 				if (s.tileNeighbors.equals(tile.tileNeighbors)) {
 					tile.tileSubType = s;
@@ -31,6 +30,34 @@ public class Tile implements Serializable {
 				}
 			}
 		}
+		if (tt == TileType.DS) {
+			for (TileDesertSubType s : TileDesertSubType.values()) {
+				if (s.tileNeighbors.equals(tile.tileNeighbors)) {
+					tile.tileSubType = s;
+					break;
+				}
+			}
+		}
+		if (tt == TileType.FT) {
+			for (TileForestSubType s : TileForestSubType.values()) {
+				if (s.tileNeighbors.equals(tile.tileNeighbors)) {
+					tile.tileSubType = s;
+					break;
+				}
+			}
+		}
+		if (tt == TileType.DT) {
+			for (TileHillSubType s : TileHillSubType.values()) {
+				if (s.tileNeighbors.equals(tile.tileNeighbors)) {
+					tile.tileSubType = s;
+					break;
+				}
+			}
+		}
+		//if (tt != TileType.BL && tile.tileSubType != TileGrassSubType.ANYLAND_MAIN)
+		//	tile.tileType = TileType.GR;
+		//else
+		tile.tileType = tt;
 		tile.x = x;
 		tile.y = y;
 		return tile;
@@ -41,12 +68,10 @@ public class Tile implements Serializable {
 		int gid = -1;
 		if (tileSubType == null) {
 			gid = tileType.gids[0];
-		} else if (tileType == TileType.GR) {
-			gid = ((TileGrassSubType)tileSubType).gid;
 		} else {
-			gid = tileType.gids[0];
+			gid = tileSubType.getGid();
 		}
-		return "<tile gid=\"" + (gid+1) + "\" />\n\t";
+		return (gid+1) + ",";
 	}
 	
 	public static Tile[][] createTilesFromTileTypes(TileType[][] tileTypes) {

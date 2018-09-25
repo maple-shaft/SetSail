@@ -10,6 +10,7 @@ public enum TileType {
 	PT(255, 0, 0, (new int[] {9,10,30,31})),
 	SP(0, 255, 255, (new int[] {100})),
 	ANYLAND(-1,-1,-1,new int[0]),
+	NOTHILL(-1,-1,-1,new int[0]),
 	NOTHING(0, 0, 0, new int[] {70});
 	
 	final int[] gids;

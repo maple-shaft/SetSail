@@ -28,6 +28,10 @@ public class TileNeighbors implements Iterable<TileType> {
 				continue;
 			} else if (this.neighbors[i] == TileType.ANYLAND && o.neighbors[i] != TileType.BL) {
 				continue;
+			} else if (this.neighbors[i] == TileType.NOTHILL && o.neighbors[i] != TileType.DT) {
+				continue;
+			} else if (o.neighbors[i] == TileType.NOTHILL && this.neighbors[i] != TileType.DT) {
+				continue;
 			}
 			retVal &= o.neighbors[i] == this.neighbors[i];
 		}
@@ -44,25 +48,26 @@ public class TileNeighbors implements Iterable<TileType> {
 	 */
 	public static TileNeighbors createTileNeighbors(int x, int y, TileType[][] map) {
 		TileNeighbors retVal = new TileNeighbors();
-		
+		int MAXY = map.length - 1;
+		int MAXX = map[0].length - 1;
 			
 		if (x > 0) {
 			retVal.neighbors[3] = map[y][x - 1];
 			if (y != 0) {
 				retVal.neighbors[0] = map[y - 1][x - 1];
 			}
-			if (y != 1079) {
+			if (y != MAXY) {
 				retVal.neighbors[5] = map[y + 1][x - 1];
 			}
 			
 		}
 		
-		if (x < 2159) {
+		if (x < MAXX) {
 			retVal.neighbors[4] = map[y][x + 1];
 			if (y != 0) {
 				retVal.neighbors[2] = map[y - 1][x + 1];
 			}
-			if (x < 2159 && y < 1079) {
+			if (x < MAXX && y < MAXY) {
 				retVal.neighbors[7] = map[y + 1][x + 1];
 			}
 		
@@ -72,7 +77,7 @@ public class TileNeighbors implements Iterable<TileType> {
 			retVal.neighbors[1] = map[y - 1][x];
 		}
 		
-		if (y < 1079) {
+		if (y < MAXY) {
 			retVal.neighbors[6] = map[y + 1][x];
 		}
 		return retVal;
