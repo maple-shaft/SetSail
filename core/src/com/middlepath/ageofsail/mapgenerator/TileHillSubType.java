@@ -35,8 +35,10 @@ public enum TileHillSubType implements TileSubType {
 		for (int i = 0; i < 8; i++) {
 			if (tt[i] == TileType.BL) {
 				retVal[i] = TileType.NOTHILL;
-			} else {
+			} else if (tt[i] == TileType.ANYLAND) {
 				retVal[i] = TileType.DT;
+			} else {
+				retVal[i] = null;
 			}
 		}
 		return retVal;

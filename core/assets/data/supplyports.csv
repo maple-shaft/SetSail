@@ -1,0 +1,136 @@
+|#ID Port Name     |Location|Specialty    Price Req.:Eco-T|Ind-T|Sprt|
++------------------+--------+-----------------------+-----+-----+----+
+|# 0 Lisbon        |39N   9W|Rock Salt       38 *100:780 a|770 A|100P|
+|# 1 Seville       |37N   6W|Porcelain      100 *100:770 a|810 A|100S|
+|# 2 Istanbul      |41N  28E|Carpet         210 *100:810 e|720 F|100T|
+|# 3 Barcelona     |41N   2E|Rock Salt       45 *100:590 a|540 A|100S|
+|# 4 Algiers       |37N   3E|-------------- ---  ---:160 d|180 F| 20T|
+|# 5 Tunis         |37N  10E|Iron Ore        90  600:130 d|160 F| 15T|
+|# 6 Valencia      |39N   0W|Wool Cloth      56 *200:320 a|300 A|100S|
+|# 7 Marseille     |44N   5E|Perfume        105 *200:350 c|290 D|  0 |
+|# 8 Genoa         |44N   8E|Silver         190 *300:750 c|760 E|100I|
+|# 9 Pisa          |43N  10E|Silk Cloth     170 *400:620 c|540 E|100I|
+|#10 Naples        |40N  13E|Wool Cloth      68 *200:630 c|640 E|100I|
+|#11 Syracuse      |37N  15E|-------------- ---  ---:240 c|220 E|100I|
+|#12 Palma         |39N   2E|-------------- ---  ---:290 c|285 A| 98S|
+|#13 Venice        |45N  13E|Glassware      180 *300:740 c|730 E|100I|
+|#14 Ragusa        |42N  18E|Dye             92  200:150 c|140 E|100I|
+|#15 Candia        |35N  25E|-------------- ---  ---:180 c|160 E|  0 |
+|#16 Athens        |38N  24E|Art            310 *300:640 c|540 E|  0 |
+|#17 Salonika      |41N  22E|-------------- ---  ---:110 e|120 E|  0 |
+|#18 Alexandria    |31N  29E|Cotton Cloth    25 *200:720 e|700 F|100T|
+|#19 Jaffa         |32N  35E|-------------- ---  ---:140 e|150 F| 95T|
+|#20 Beirut        |33N  35E|Carpet         210  300:270 e|250 F|100T|
+|#21 Nicosia       |35N  33E|Copper Ore      88  400:150 c|160 F| 98T|
+|#22 Tripoli       |32N  13E|-------------- ---  ---:420 d|400 F| 90T|
+|#23 Kaffa         |45N  34E|Iron Ore        85  400:340 e|350 F| 35T|
+|#24 Azov          |47N  38E|-------------- ---  ---:110 e|115 F| 20T|
+|#25 Trebizond     |41N  39E|Cotton Cloth    58 *100:360 e|370 F|100T|
+|#26 Ceuta         |35N   5W|-------------- ---  ---: 85 d| 90 A|100P|
+|#27 Bordeaux      |45N   1W|Raisins         32 *200:600 b|580 D| 80E|
+|#28 Nantes        |48N   2W|-------------- ---  ---:560 b|570 D| 80E|
+|#29 London        |53N   0E|Wool            45 *100:720 b|740 B|100E|
+|#30 Bristol       |52N   3W|Tin Ore         75  350:320 b|380 B|100E|
+|#31 Dublin        |54N   7W|-------------- ---  ---:370 b|350 B| 93E|
+|#32 Antwerp       |53N   5E|Wool Cloth      52 *300:660 b|670 C|100H|
+|#33 Amsterdam     |55N   6E|Glass Beads      3 *100:700 b|730 C|100H|
+|#34 Copenhagen    |57N  12E|Glassware      190 *450:530 b|510 D| 98H|
+|#35 Hamburg       |55N  10E|Dye             85 *400:600 b|620 C| 95H|
+|#36 Oslo          |63N  10E|Wood            82 *100:190 b|185 D| 80E|
+|#37 Stockholm     |62N  19E|Copper Ore      80  500:480 b|470 D| 85E|
+|#38 Lubeck        |55N  10E|Silver         170  500:320 b|300 D| 85H|
+|#39 Danzig        |56N  18E|-------------- ---  ---:370 b|280 D| 90H|
+|#40 Riga          |59N  23E|Wood            80 *100:150 b|160 D| 85H|
+|#41 Bergen        |62N   5E|-------------- ---  ---:145 b|150 D| 80H|
+|#42 Caracas       | 7N  72W|Vanilla         40 *200:220 h|210 K| 95S|
+|#43 Cartegena     | 6N  81W|-------------- ---  ---:190 h|130 K|  0 |
+|#44 Havana        |19N  87W|Vanilla         35 *200:210 g|220 K| 93S|
+|#45 Margarita     | 7N  69W|-------------- ---  ---: 40 h| 45 K|  0 |
+|#46 Panama        | 5N  85W|-------------- ---  ---:160 g|190 K|  0 |
+|#47 Porto Velho   | 6N  85W|-------------- ---  ---: 60 g| 75 K| 95S|
+|#48 Santo Domingo |14N  74W|Sugar           18  200:150 g|160 K| 98S|
+|#49 Veracruz      |15N 100W|Gold           400  400: 80 g| 75 K|  0 |
+|#50 Jamaica       |13N  81W|Sugar           18  200: 60 g| 80 K| 90S|
+|#51 Guatemala     |10N  95W|Grain           10   90: 70 g| 65 K| 97S|
+|#52 Pernambuco    |11S  45W|Dye             35  250:215 h|240 K|100P|
+|#53 Rio de Janeiro|25S  50W|Gold           380  450: 45 h| 50 K| 90P|
+|#54 Maracaibo     | 7N  77W|-------------- ---  ---:120 h|105 K| 95S|
+|#55 Santiago      |16N  81W|-------------- ---  ---: 80 g|105 K|  0 |
+|#56 Cayenne       | 0S  57W|Wood            60  100: 70 h| 65 K|  0 |
+|#57 Madeira       |33N  17W|Sugar           12 *100:240 f|230 H|100P|
+|#58 Santa Cruz    |28N  17W|-------------- ---  ---: 90 f| 80 H|  0 |
+|#59 San Jorge     | 6N   2W|Ivory          100 *200:210 f|190 H|100P|
+|#60 Bissau        |13N  17W|-------------- ---  ---: 85 f|100 H|  0 |
+|#61 Luanda        | 8S  12E|Coral          120  100: 90 f| 75 H| 96P|
+|#62 Argin         |20N  18W|-------------- ---  ---:200 f|185 H|100P|
+|#63 Bathurst      |14N  17W|-------------- ---  ---: 75 f| 60 H|  0 |
+|#64 Timbuktu      |15N   4W|Ivory           60 *100:430 f| 35 H|  0 |
+|#65 Abidjan       | 6N   5W|Musk            80  200: 90 f| 75 H|  0 |
+|#66 Sofala        |17S  34E|Ivory           90 *100:390 i|400 H| 85P|
+|#67 Malindi       | 3S  39E|Musk            70 *150:370 i|360 H| 95P|
+|#68 Mogadishu     | 3N  45E|Ivory           85  150: 90 i| 70 H|  0 |
+|#69 Mombasa       | 4S  39E|-------------- ---  ---:380 i|390 H| 90P|
+|#70 Mozambique    |13S  40E|-------------- ---  ---:180 i|160 H|  0 |
+|#71 Quelimane     |15S  36E|Tortoise Shell  45  200: 60 i| 60 H|  0 |
+|#72 Aden          |14N  46E|Amber          110  250:210 j|260 G| 90P|
+|#73 Hormuz        |26N  56E|Ginger          25  300:100 j| 90 G| 95P|
+|#74 Massawa       |15N  41E|Pimento         25  300: 90 j| 85 G|  0 |
+|#75 Cairo         |29N  32E|Art            190 *400:510 j|480 F|100T|
+|#76 Basra         |30N  48E|Cheese          10 * 50:480 j|500 G|100T|
+|#77 Mecca         |21N  39E|Musk            50 *200:500 j| 80 G|100T|
+|#78 Quatar        |25N  52E|Tortoise Shell  35  150:130 j|160 G|100T|
+|#79 Shiraz        |26N  53E|-------------- ---  ---: 70 j| 80 G|100T|
+|#80 Muscat        |24N  58E|-------------- ---  ---:180 j|230 G| 95T|
+|#81 Diu           |25N  66E|-------------- ---  ---: 75 k| 80 G| 87P|
+|#82 Cochin        |10N  75E|-------------- ---  ---:130 k|120 G| 90P|
+|#83 Ceylon        | 8N  80E|Cinnamon         4 * 50:180 k|210 G|  0 |
+|#84 Amboa         | 1S 125E|Nutmeg           5   70: 50 l| 50 G|  0 |
+|#85 Goa           |14N  73E|Ginger          10 *200:540 k|560 G| 85P|
+|#86 Malacca       | 4N 101E|Cinnamon         3 * 50: 90 l| 95 G|  0 |
+|#87 Ternate       | 2N 125E|Clove            4 * 80: 80 l| 85 G|  0 |
+|#88 Banda         | 2S 128E|Nutmeg           3 * 30: 45 l| 40 G|  0 |
+|#89 Dili          | 6S 125E|Clove            4   50: 40 l| 45 G|  0 |
+|#90 Pasei         | 5N  96E|-------------- ---  ---: 35 l| 40 G|  0 |
+|#91 Sunda         | 3S 106E|-------------- ---  ---: 40 l| 55 G|  0 |
+|#92 Calicut       |12N  74E|Nutmeg          15 *250:530 k|560 G|  0 |
+|#93 Bankao        | 1N 105E|-------------- ---  ---: 50 l| 45 G|  0 |
+|#94 Zeiton        |26N 119E|Silk            25 *300:520 m|570 I|  0 |
+|#95 Macao         |23N 113E|-------------- ---  ---:480 m|490 I|  0 |
+|#96 Hanoi         |22N 105E|Coral           70 *300:300 m|340 G|  0 |
+|#97 Changan       |35N 110E|Silk Cloth      20 *400:580 m|280 I|  0 |
+|#98 Sakai         |35N 136E|Silk Cloth      15 *400:420 m|410 J|  0 |
+|#99 Nagasaki      |33N 129E|Silver          35 *150:210 m|220 J|  0 |
++------------------+--------+-----------------------+-----+-----+----+
+
+|#ID Port Name     |Location|
++------------------+--------+
+|S 0 Hekla         |60N  19W|  Additionally, there are 30
+|S 1 Narvik        |73N  16E|  Supply ports. These ports
+|S 2 Cape Town     |30S  17E|  are all neutral, and only
+|S 3 Belgrade      |46N  18E|  have one structure, the
+|S 4 Tamatave      |16S  48E|  Harbor.
+|S 5 Dikson        |81N  81E|
+|S 6 Lushun        |39N 122E|  As a Supply Port, their use
+|S 7 Leveque       |10S 125E|  is simply to let you dock to
+|S 8 Mindanao      | 8N 126E|  restock water, food, lumber,
+|S 9 Tiksi         |78N 129E|  and gunpowder. Prices are
+|S10 Ezo           |42N 140E|  always 100%, so don't worry
+|S11 Geelong       |34S 141E|  about ever spending 22 gold
+|S12 Guam          |14N 143E|  per barrel of food instead
+|S13 Moresby       | 6S 145E|  of 20 gold.
+|S14 Korf          |61N 163E|
+|S15 Wanganui      |36S 171E|
+|S16 Suva          |13S 176E|
+|S17 Nome          |67N 166W|
+|S18 Naalehu       |19N 156W|
+|S19 Tahiti        |12S 154W|
+|S20 Juneau        |57N 138W|
+|S21 Coppermine    |72N 124W|
+|S22 Santa Barbara |26N 120W|
+|S23 Churchill     |55N  94W|
+|S24 Callao        |11S  84W|
+|S25 Valparaiso    |35S  79W|
+|S26 Mollendo      |19S  78W|
+|S27 Cape Cod      |37N  72W|
+|S28 Montevideo    |37S  63W|
+|S29 Forel         |63N  39W|

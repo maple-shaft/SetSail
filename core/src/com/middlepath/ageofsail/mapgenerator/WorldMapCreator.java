@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,19 +46,7 @@ public class WorldMapCreator {
 	public static final int width = 2160;
 	public static final int height = 1080;
 
-	public static byte[] reverse(byte[] array) {
 
-		int j = array.length - 1;
-		// swap the values at the left and right indices //////
-		for (int i = 0; i <= j; i++) {
-			byte temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-			j--;
-		}
-
-		return array;
-	}
 
 	public static byte[][] chunkArray(byte[] array, int chunkSize) {
 		int numOfChunks = (int) Math.ceil((double) array.length / chunkSize);
@@ -126,69 +118,19 @@ public class WorldMapCreator {
 		return;
 	}
 	
-	public static TileType[][] firstPass(TileType[][] tileData) {
-		TileType[][] mod = new TileType[height][width];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, tileData);
-				TileType centerTile = tileData[y][x];
-				boolean hasWaterNeighbor = false;
-				for (TileType tt : neighborData) {
-					if (tt == TileType.BL) {
-						hasWaterNeighbor = true;
-						break;
-					}
-				}
-				if (centerTile != TileType.BL && hasWaterNeighbor)
-					mod[y][x] = TileType.BL;
-				else
-					mod[y][x] = tileData[y][x];
-			}
+	public static void loadCities() throws Exception {
+		InputStream is = WorldMapCreator.class.getResourceAsStream("/data/cities.csv");
+		//is = WorldMapCreator.class.getResourceAsStream("/maps/uwnhmap.png");
+		CSVFormat format = CSVFormat.DEFAULT.withDelimiter('|').withFirstRecordAsHeader().withTrim(true);
+		for (CSVRecord record : CSVParser.parse(is, Charset.defaultCharset(), format)) {
+			System.out.println(record.toString());
+			
 		}
-		
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, mod);
-				TileType centerTile = mod[y][x];
-				boolean hasLandNeighbor = false;
-				for (TileType tt : neighborData) {
-					if (tt != TileType.BL) {
-						hasLandNeighbor = true;
-						break;
-					}
-				}
-				if (centerTile == TileType.BL && hasLandNeighbor && tileData[y][x] != TileType.BL)
-					mod[y][x] = tileData[y][x];
-			}
-		}
-		return mod;
-	}
-	
-	public static TileType[][] secondPass(TileType[][] tileData) {
-		TileType[][] mod = new TileType[height][width];
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				TileNeighbors neighborData = TileNeighbors.createTileNeighbors(x, y, tileData);
-				TileType centerTile = tileData[y][x];
-				boolean hasLandNeighbor = false;
-				for (TileType tt : neighborData) {
-					if (tt != TileType.BL) {
-						hasLandNeighbor = true;
-						break;
-					}
-				}
-				if (centerTile == TileType.BL && hasLandNeighbor)
-					mod[y][x] = TileType.GR;
-				else
-					mod[y][x] = tileData[y][x];
-			}
-		}
-		return mod;
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		TileType[][] tileData = loadTileData();
+		//TileType[][] tileData = loadTileData();
 		//tileData = firstPass(tileData);
 		//tileData = firstPass(tileData);
 		
@@ -199,8 +141,8 @@ public class WorldMapCreator {
 		countTiles.entrySet().stream()
 				.forEach(kv -> System.out.println("TileType: " + kv.getKey() + " = " + kv.getValue()));
 */
-		changeDocument(tileData);
-		
+		//changeDocument(tileData);
+		loadCities();
 	}
 
 }

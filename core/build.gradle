@@ -6,6 +6,15 @@ sourceCompatibility = 1.6
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 
+/*<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-csv</artifactId>
+    <version>1.6</version>
+</dependency>*/
+dependencies {
+	compile "org.apache.commons:commons-csv:1.6"
+}
+
 eclipse.project {
     name = appName + "-core"
 }
